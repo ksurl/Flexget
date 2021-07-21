@@ -44,6 +44,8 @@ jobs:
       id: changelog
       if: env.release_tag
       run: |
+        set -x
+        python create-github-changelog.py wiki/ChangeLog.md latest-changelog.md
         version=$(echo ${{ env.release_tag }} | sed -e 's/v//' -e 's/\.//g')
         date=$(date +%Y-%m-%d)
         link="${{ env.release_tag }} [Changelog](https://flexget.com/ChangeLog#${version}-${date})"
@@ -55,7 +57,7 @@ jobs:
         tag: ${{ env.release_tag }}
         artifacts: "dist/*"
         token: ${{ secrets.GITHUB_TOKEN }}
-        body: ${{ steps.changelog.output.changeloglink }}
+        bodyFile: github-changelog.md
     - name: Set Deployment Status Success
       uses: deliverybot/deployment-status@v1
       with:
