@@ -25,12 +25,22 @@ jobs:
         key: ${{ runner.OS }}-python${{ matrix.python-version }}-${{ hashFiles('*requirements*.txt') }}
         restore-keys: |
           ${{ runner.OS }}-python${{ matrix.python-version }}-
-    # Can we cache the apt-get stuff somehow?
-    - name: Install unrar  # used by some flexget tests
+    - name: Set up apt cache
+      uses: actions/cache@v2
+      id: apt-cache
+      with:
+        path: /var/cache/apt/archives
+        key: ${{ runner.os }}-apt-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-apt-
+    - name: Install unrar # used by some flexget tests
       if: matrix.operating-system == 'ubuntu-latest'
       run: |
         sudo apt-get update
         sudo apt-get install -qy unrar
+      with:
+        cache-from: type=local,src=/var/cache/apt/archives
+        cache-to: type=local,dest=/var/cache/apt/archives
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
