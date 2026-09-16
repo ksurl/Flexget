@@ -36,6 +36,7 @@ class NtfyshNotifier:
             'priority': {'type': 'integer', 'default': 3},
             'delay': {'type': 'string'},
             'tags': {'type': 'string'},
+            'icon': {'type': 'url', 'default': 'https://raw.githubusercontent.com/Flexget/Flexget/refs/heads/develop/flexget/resources/flexget.png'}
             'username': {'type': 'string'},
             'password': {'type': 'string'},
         },
@@ -62,6 +63,9 @@ class NtfyshNotifier:
             req['params']['delay'] = config['delay']
         if 'tags' in config:
             req['params']['tags'] = config['tags']
+        
+        if 'icon' in config:
+            req['params']['icon'] = config['icon']
 
         try:
             requests.post(**req)
