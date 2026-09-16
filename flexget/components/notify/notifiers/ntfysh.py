@@ -36,7 +36,7 @@ class NtfyshNotifier:
             'priority': {'type': 'integer', 'default': 3},
             'delay': {'type': 'string'},
             'tags': {'type': 'string'},
-            'icon': {'type': 'url', 'default': 'https://raw.githubusercontent.com/Flexget/Flexget/refs/heads/develop/flexget/resources/flexget.png'}
+            'icon': {'type': 'url', 'default': 'https://raw.githubusercontent.com/Flexget/Flexget/refs/heads/develop/flexget/resources/flexget.png'},
             'username': {'type': 'string'},
             'password': {'type': 'string'},
         },
